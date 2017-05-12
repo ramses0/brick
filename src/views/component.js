@@ -28,12 +28,18 @@ class Hash {
   }
 
   hash (filePath) {
-    Hash.loadFileContents(filePath)
+    console.log( "Hashing: ", filePath );
+    filePath = filePath.replace( /[A-Z@]*/, '' );
+    console.log( "Hashing(really): ", filePath );
+    return Hash.loadFileContents(filePath)
         .then(fileData => Hash.createHashFromFileContents(fileData))
         .then(fileHash => {
-          const newPath = filePath
+          let newPath = filePath
               .replace(/\/?client/, '/static')
               .replace(/([^\.]+)\.(.+)/, `$1.${fileHash}.$2`);
+          console.log( "newPath: ", newPath );
+
+          newPath = '/static/scripts/app.js';
           
           return newPath;
         });

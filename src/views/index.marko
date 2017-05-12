@@ -10,9 +10,13 @@
     <p>You are ${data.age} years old.</p>
 
     <include("./partials/footer")/>
+
+    $ console.log( "XXXXXXXXXXX" );
+    $ console.log( 'bonk:', component.hash( '/client/scripts/app.js' ) );
     
-    <await(path from component.hash('/client/scripts/app.js'))>
-      <script async src="${path}"/>
+    <await(path from component.hash('@@@FAKE@@@/client/scripts/app.js'))>
+      $ console.log( "ABC: ", path );
+      <script src="${path}"/>
     </await>
   </body>
 </html>
