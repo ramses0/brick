@@ -6,7 +6,7 @@ const path = require('path');
 
 class Hash {
   
-  static loadFileContents(filePath) {
+  static loadFileContents (filePath) {
     filePath = path.join(__dirname, '..', filePath);
 
     return new Promise((resolve, reject) => {
@@ -20,14 +20,14 @@ class Hash {
     });
   }
 
-  static createHashFromFileContents(data) {
+  static createHashFromFileContents (data) {
     return crypto
         .createHash('sha256')
         .update(data)
         .digest('hex');
   }
 
-  hash(filePath) {
+  hash (filePath) {
     Hash.loadFileContents(filePath)
         .then(fileData => Hash.createHashFromFileContents(fileData))
         .then(fileHash => {
