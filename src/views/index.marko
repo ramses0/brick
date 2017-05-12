@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Brick :: ${data.title}</title>
+  </head>
+  <body>
+    <include("./partials/header")/>
+    
+    <h3>Hello, ${data.name}</h3>
+    <p>You are ${data.age} years old.</p>
+
+    <include("./partials/footer")/>
+    
+    <await(path from component.hash('/client/scripts/app.js'))>
+      <script async src="${path}"/>
+    </await>
+  </body>
+</html>

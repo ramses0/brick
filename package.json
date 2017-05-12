@@ -1,0 +1,66 @@
+{
+  "name": "brick",
+  "version": "1.0.0",
+  "description": "expressjs with markojs tryout project",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "node dist/server/index.js",
+    "clean-dist": "rm -rf dist",
+    "make-dist": "mkdirp dist",
+    "make-client": "mkdirp dist/client",
+    "copy-all": "npm run copy-server && npm run copy-client && npm run copy-views",
+    "copy-server": "cp -R src/server dist",
+    "copy-views": "cp -R src/views dist",
+    "copy-client": "copy \"src/client/**/*.*\" \"!src/client/scripts/**/*.*\" \"!src/client/styles/**/*.*\" dist/client",
+    "serve": "nodemon dist/server/index.js",
+    "dev": "npm run build && parallelshell \"npm run watch\" \"npm run serve\"",
+    "watch": "npm-watch",
+    "build": "npm run clean-dist && npm run make-dist && npm run make-client && npm run copy-all && npm run build-js && npm run build-sass",
+    "build-js": "node build/transpile-javascript.js",
+    "build-sass": "node build/transpile-sass.js",
+    "build-js-and-sass": "npm run build-js && npm run build-sass",
+    "release": "npm version patch && npm run build"
+  },
+  "watch": {
+    "build-js-and-sass": {
+      "patterns": "client",
+      "extensions": [
+        "scss",
+        "js"
+      ]
+    },
+    "copy-server": "src/server",
+    "copy-views": {
+      "patterns": "src/views",
+      "extensions": [
+        "css",
+        "js",
+        "marko"
+      ]
+    },
+    "copy-client": "src/client"
+  },
+  "author": "Mirko Igumnovic <mirko.igumnovic@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.6.2",
+    "express": "^4.15.2",
+    "marko": "^4.3.0",
+    "spdy": "^3.4.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-preset-babili": "0.0.12",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "clean-css": "^4.0.12",
+    "copy": "^0.3.0",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
+    "npm-watch": "^0.1.8",
+    "parallelshell": "^2.0.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "yargs": "^7.1.0"
+  }
+}
